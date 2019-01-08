@@ -1,0 +1,77 @@
+spring:
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  jackson:
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss
+  security:
+    basic:
+      enabled: true
+    user:
+      name: root
+      password: root
+  datasource:
+    url: jdbc:mysql://localhost:3306/4a_dev?characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+
+mybatis:
+  type-aliases-package: com.jffccloud.*.model
+  mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+mapper:
+  mappers: com.jffccloud.common.mybatis.MyMapper
+  not-empty: false
+  identity: MYSQL
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+security:
+  oauth2:
+    client:
+      clientId: jffccloud-client-auth
+      clientSecret: jffccloudClientSecret
+      access-token-uri: http://localhost:8000/oauth/token
+      user-authorization-uri: http://localhost:8000/oauth/authorize
+    resource:
+      id: jffccloud-resource-auth
+
+jffccloud:
+  oauth2:
+    jwtSigningKey: jffccloud
+    client:
+      id: ${security.oauth2.resource.id}
+      accessTokenUrl: ${security.oauth2.client.access-token-uri}
+      clientId: ${security.oauth2.client.clientId}
+      clientSecret: ${security.oauth2.client.clientSecret}
+      clientAuthenticationScheme: header
+  security:
+    oauth2:
+      tokenStore: jwt
+      clients[0]:
+        clientId: jffccloud-client-auth
+        clientSecret: jffccloudClientSecret
+        accessTokenValidateSeconds: 7200
+        scope: "*"
+      clients[1]:
+        clientId: jffccloud-client-order
+        clientSecret: jffccloudClientSecret
+        accessTokenValidateSeconds: 7200
+        scope: "*"
+      clients[2]:
+        clientId: jffccloud-client-user
+        clientSecret: jffccloudClientSecret
+        accessTokenValidateSeconds: 7200
+        scope: "*"
+      clients[3]:
+        clientId: jffccloud-client-gateway
+        clientSecret: jffccloudClientSecret
+        accessTokenValidateSeconds: 7200
+        scope: "*"

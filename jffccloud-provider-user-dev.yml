@@ -1,0 +1,56 @@
+spring:
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  jackson:
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    url: jdbc:mysql://localhost:3306/4a_dev?characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+
+mybatis:
+  type-aliases-package: com.jffccloud.*.model
+  mapper-locations: classpath:mapper/*.xml,classpath*:sdk/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+mapper:
+  mappers: com.jffccloud.common.mybatis.MyMapper
+  not-empty: false
+  identity: MYSQL
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+security:
+  oauth2:
+    client:
+      clientId: jffccloud-client-user
+      clientSecret: jffccloudClientSecret
+      access-token-uri: http://localhost:7979/auth/oauth/token
+      user-authorization-uri: http://localhost:7979/auth/oauth/authorize
+    resource:
+      id: jffccloud-client-user
+      user-info-uri: http://localhost:7979/auth/user
+      prefer-token-info: false
+      jwt:
+        key-uri: http://localhost:8000/oauth/token_key
+
+jffccloud:
+  oauth2:
+    jwtSigningKey: jffccloud
+    client:
+      id: ${security.oauth2.resource.id}
+      accessTokenUrl: ${security.oauth2.client.access-token-uri}
+      clientId: ${security.oauth2.client.clientId}
+      clientSecret: ${security.oauth2.client.clientSecret}
+      clientAuthenticationScheme: header

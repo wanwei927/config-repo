@@ -1,0 +1,67 @@
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+    multipart:
+      enabled: true
+      max-request-size: 50MB
+      max-file-size: 50MB
+
+zuul:
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+  forceOriginalQueryStringEncoding: true
+  routes:
+    auth-route:
+      path: /auth/**
+      sensitiveHeaders:
+      service-id: jffccloud-auth
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    ord-route:
+      path: /ord/**
+      sensitiveHeaders:
+      service-id: jffccloud-provider-order
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+    usc-route:
+      path: /usc/**
+      sensitiveHeaders:
+      service-id: jffccloud-provider-user
+      ribbon:
+        eager-load:
+          enabled: true
+        MaxAutoRetries: 1
+        MaxAutoRetriesNextServer: 2
+        OkToRetryOnAllOperations: false
+        ConnectTimeout: 10000
+        ReadTimeout: 10000
+
+security:
+  oauth2:
+    client:
+      clientId: jffccloud-client-gateway
+      clientSecret: jffccloudClientSecret
+      access-token-uri: http://localhost:8000/oauth/token
+      user-authorization-uri: http://localhost:8000/oauth/authorize
+    resource:
+      id: jffccloud-client-gateway
+      user-info-uri: http://localhost:8000/user
+      prefer-token-info: false
+      jwt:
+        key-uri: http://localhost:8000/oauth/token_key
