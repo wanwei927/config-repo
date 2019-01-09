@@ -10,10 +10,6 @@ spring:
     user:
       name: root
       password: root
-  datasource:
-    url: jdbc:mysql://localhost:3306/4a_dev?characterEncoding=utf8&useSSL=false
-    username: root
-    password: 123456
 
 mybatis:
   type-aliases-package: com.jffccloud.*.model
