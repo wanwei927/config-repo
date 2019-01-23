@@ -5,7 +5,7 @@ spring:
     joda-date-time-format: yyyy-MM-dd HH:mm:ss
     date-format: yyyy-MM-dd HH:mm:ss
   datasource:
-  	type:com.alibaba.druid.pool.DruidDataSource
+  	type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/4a_dev?characterEncoding=utf8&useSSL=false
     username: root
     password: 123456
