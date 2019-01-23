@@ -5,18 +5,11 @@ spring:
     joda-date-time-format: yyyy-MM-dd HH:mm:ss
     date-format: yyyy-MM-dd HH:mm:ss
   datasource:
+  	type:com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/4a_dev?characterEncoding=utf8&useSSL=false
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-    filters: stat,wall
-    druid:
-      web-stat-filter:
-        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
-      stat-view-servlet:
-        allow:
-        login-username: admin
-        login-password: admin
 
   zipkin:
     base-url: http://localhost:9411
