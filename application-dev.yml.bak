@@ -57,6 +57,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 20000
-jffccloud:
-  sql:
-    writeOrRead: false
+ jffccloud:
+   sql:
+      writeOrRead: false
